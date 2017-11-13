@@ -1,0 +1,2 @@
+cd aitupad
+./start.bat
