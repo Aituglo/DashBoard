@@ -4,7 +4,7 @@ var request = require('request');
 var config = require('config/config.js');
 
 router.get('/', function (req, res) {
-    res.render('register');
+    res.render('account/register');
 });
 
 router.post('/', function (req, res) {
@@ -15,15 +15,16 @@ router.post('/', function (req, res) {
         json: true
     }, function (error, response, body) {
         if (error) {
-            return res.render('register', { error: 'An error occurred' });
+            return res.render('account/register', { error: 'An error occurred' });
         }
 
         if (response.statusCode !== 200) {
-            return res.render('register', {
+            return res.render('account/register', {
                 error: response.body,
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
-                username: req.body.username
+                username: req.body.username,
+                email: req.body.email
             });
         }
 
