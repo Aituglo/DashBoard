@@ -119,7 +119,7 @@
             </ul>
             <ul class="nav-right">
               <li class="notifications dropdown">
-                <span class="counter bgc-red">3</span>
+                <span class="counter bgc-red">{{ unview_notifs.length }}</span>
                 <a href="" class="dropdown-toggle no-after" data-toggle="dropdown">
                   <i class="ti-bell"></i>
                 </a>
@@ -131,33 +131,28 @@
                   </li>
                   <li>
                     <ul class="ovY-a pos-r scrollable lis-n p-0 m-0 fsz-sm">
-                      <!-- HERE NOTIFICATION EXAMPLE : -->
-
-                      <!--
-                      <li>
-                        <a href="" class='peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100'>
-                          <div class="peer mR-15">
-                            <img class="w-3r bdrs-50p" src="https://randomuser.me/api/portraits/men/2.jpg" alt="">
-                          </div>
-                          <div class="peer peer-greed">
-                            <span>
-                              <span class="fw-500">Moo Doe</span>
-                              <span class="c-grey-600">liked your <span class="text-dark">cover image</span>
-                              </span>
-                            </span>
-                            <p class="m-0">
-                              <small class="fsz-xs">7 mins ago</small>
-                            </p>
-                          </div>
-                        </a>
-                      </li>
-                      -->
-                      
+                        <li ng-repeat="notif in unview_notifs">
+                            <a href="" class='peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100'>
+                                <div class="peer mR-15">
+                                    <img class="w-3r bdrs-50p" src="{{notif.img}}" alt="">
+                                </div>
+                                <div class="peer peer-greed">
+                                    <span>
+                                        <span class="fw-500">{{ notif.name }}</span>
+                                        <span class="c-grey-600">{{ notif.text }}</span>
+                                        </span>
+                                    </span>
+                                    <p class="m-0">
+                                        <small class="fsz-xs">7 mins ago</small>
+                                    </p>
+                                </div>
+                            </a>
+                        </li>
                     </ul>
                   </li>
                   <li class="pX-20 pY-15 ta-c bdT">
                     <span>
-                      <a href="" class="c-grey-600 cH-blue fsz-sm td-n">View All Notifications <i class="ti-angle-right fsz-xs mL-10"></i></a>
+                      <a ui-sref="notif" class="c-grey-600 cH-blue fsz-sm td-n">View All Notifications <i class="ti-angle-right fsz-xs mL-10"></i></a>
                     </span>
                   </li>
                 </ul>
@@ -192,7 +187,7 @@
                   </li>
                   <li role="separator" class="divider"></li>
                   <li>
-                    <a href="/login" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700">
+                    <a href="/logout" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700">
                       <i class="ti-power-off mR-10"></i>
                       <span>Logout</span>
                     </a>
@@ -218,15 +213,17 @@
     <script src="static/js/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
     <script src="static/js/vendor.js"></script>
     <script src="static/js/bundle.js"></script>
-   
 
     <!-- application scripts -->
     <script src="app.js"></script>
     <script src="services/user.service.js"></script>
+    <script src="services/notif.service.js"></script>
     <script src="services/todo.service.js"></script>
     <script src="services/flash.service.js"></script>
+    <script src="controllers/notif.controller.js"></script>
     <script src="controllers/account.controller.js"></script>
     <script src="controllers/home.controller.js"></script>
     <script src="controllers/todo.controller.js"></script>

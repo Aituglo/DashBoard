@@ -4,15 +4,9 @@ var request = require('request');
 var config = require('config/config.js');
 
 router.get('/', function (req, res) {
-    // log user out
-    delete req.session.token;
-
-    // move success message into local variable so it only appears once (single read)
-    var viewData = { success: req.session.success };
-    delete req.session.success;
-
-    res.render('account/login', viewData);
+    res.render('account/login');
 });
+
 
 router.post('/', function (req, res) {
     // authenticate using api to maintain clean separation between layers
@@ -31,6 +25,8 @@ router.post('/', function (req, res) {
 
         // save JWT token in the session to make it available to the angular app
         req.session.token = body.token;
+        req.session.username = req.body.username;
+        
 
         // redirect to returnUrl
         var returnUrl = req.query.returnUrl && decodeURIComponent(req.query.returnUrl) || '/';

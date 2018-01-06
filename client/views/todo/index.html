@@ -13,7 +13,7 @@
       <div class="layer w-100">
         <ul class="list-task list-group" data-role="tasklist">
 
-          <li class="list-group-item bdw-0" data-role="task" ng-repeat="todo in vm.todos | filter:statusFilter track by $index" ng-class="{completed: todo.completed, editing: todo == editedTodo}">
+          <li class="list-group-item bdw-0" data-role="task" ng-repeat="todo in vm.todos | filter:statusFilter track by $index" >
             <div class="checkbox checkbox-circle checkbox-info peers ai-c">
               <input type="checkbox" id="inputCall1" name="inputCheckboxesCall" class="peer" ng-click="vm.deleteTodo(todo._id)">
               <label for="inputCall1" class=" peers peer-greed js-sb ai-c">

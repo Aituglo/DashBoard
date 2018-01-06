@@ -2,6 +2,7 @@ var config = require('config/config.js');
 var express = require('express');
 var router = express.Router();
 var userService = require('services/user.service');
+var socket = require('socket.io-client')(config.socketUrl);
 
 // routes
 router.post('/authenticate', authenticateUser);
@@ -17,6 +18,7 @@ function authenticateUser(req, res) {
         .then(function (token) {
             if (token) {
                 // authentication successful
+                socket.emit('user.connected', {"username": req.body.username});
                 res.send({ token: token });
             } else {
                 // authentication failed

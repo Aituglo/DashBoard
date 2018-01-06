@@ -4,6 +4,7 @@ module.exports = function(app) {
 
     //base
     app.use('/login', require('../controllers/login.controller'));
+    app.use('/logout', require('../controllers/logout.controller'));
     app.use('/register', require('../controllers/register.controller'));
 
     //angular
@@ -11,8 +12,9 @@ module.exports = function(app) {
 
     //api
     app.use('/api/users', require('../controllers/api/users.controller'));
+    app.use('/api/notifs', require('../controllers/api/notifs.controller'));
     app.use('/api/todo', require('../controllers/api/todo.controller'));
-
+    
     // make '/app' default route
     app.get('/', function (req, res) {
         return res.redirect('/app');

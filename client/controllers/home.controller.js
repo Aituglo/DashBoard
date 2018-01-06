@@ -1,23 +1,29 @@
-﻿(function () {
-    'use strict';
+﻿var app = angular.module('app')
+        
+app.controller('Home.IndexController', Controller);
 
-    angular
-        .module('app')
-        .controller('Home.IndexController', Controller);
+function Controller($scope, $rootScope, UserService, socket) {
 
-    function Controller(UserService) {
-        var vm = this;
+    var vm = this;
 
-        vm.user = null;
+    vm.user = null;
 
-        initController();
+    vm.notif = function(){
+        UserService.GetCurrent().then(function (user) {
+            socket.emit('push', {"user": user._id, "name": "test", "read": 0, "text": "test"});
+        });
+        
+    };
 
-        function initController() {
-            // get current user
-            UserService.GetCurrent().then(function (user) {
-                vm.user = user;
-            });
-        }
+    initController();
+
+    function initController() {
+        // get current user
+        UserService.GetCurrent().then(function (user) {
+            vm.user = user;
+        });
     }
 
-})();
+    
+}
+
