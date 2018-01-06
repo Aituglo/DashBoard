@@ -18,16 +18,4 @@ module.exports = function(app) {
         return res.redirect('/app');
     });
 
-    app.get('/hello', function(req, res){
-        var returnUrl = req.query.returnUrl;
-        // log user out
-        delete req.session.token;
-
-        // move success message into local variable so it only appears once (single read)
-        var viewData = { success: req.session.success };
-        delete req.session.success;
-
-        return res.render('account/hello', {next: '/login?returnUrl=' + returnUrl});
-    });
-
 };
