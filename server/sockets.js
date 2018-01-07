@@ -1,4 +1,4 @@
-var notifService = require('services/notif.service');
+var notifService = require('api/core/notifications/index');
 
 module.exports = function(io, domain){
 

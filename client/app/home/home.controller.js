@@ -6,23 +6,13 @@ function Controller($scope, $rootScope, UserService, socket) {
 
     var vm = this;
 
-    vm.user = null;
-
     vm.notif = function(){
         UserService.GetCurrent().then(function (user) {
-            socket.emit('push', {"user": user._id, "name": "test", "read": 0, "text": "test"});
+            socket.emit('push', {"user": user._id, "name": "Welcome", "read": 0, "text": "I'm Onyx your dashboard", "fa": "fa-home"});
         });
         
     };
 
-    initController();
-
-    function initController() {
-        // get current user
-        UserService.GetCurrent().then(function (user) {
-            vm.user = user;
-        });
-    }
 
     
 }

@@ -11,6 +11,7 @@ var config = require('../config/config.js');
 var passport = require('passport');
 var domain = require('domain');
 var server = require('http').Server(app);
+var i18n = require("i18n");
 
 var io = require('socket.io')(server);
 var cookieParser = require('cookie-parser');
@@ -26,6 +27,12 @@ if(config.database.user != null && config.database.pass != null){
   mongoOptions.user = config.database.user;
   mongoOptions.pass = config.database.pass;
 }
+
+i18n.configure({
+    locales:['en', 'fr'],
+    directory: __dirname + '/../config/locales',
+    defaultLocale: 'fr'
+});
 
 mongoose.connect(databaseURL, mongoOptions); // connect database
 
@@ -43,11 +50,12 @@ app.use(cookieParser());
 app.use(session({ secret: config.secret, resave: false, saveUninitialized: true, store: mongoStore  }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(i18n.init);
 
 // use JWT auth to secure the api
 app.use('/api', expressJwt({ secret: config.secret }).unless({ path: ['/api/users/authenticate', '/api/users/register'] }));
 
-app.use('/static', express.static('./client/static/'));
+app.use('/static', express.static('./client/'));
 
 require('./routes.js')(app, passport);
 

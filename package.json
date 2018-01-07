@@ -7,6 +7,7 @@
     "url": "https://github.com/aituglo/school-management"
   },
   "dependencies": {
+    "i18n": "^0.8.3",
     "bcryptjs": "^2.1.0",
     "body-parser": "^1.13.2",
     "connect-flash": "~0.1.1",

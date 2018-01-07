@@ -4,7 +4,7 @@ var mongo = require('mongoskin');
 var db = mongo.db(config.database.url, { native_parser: true });
 var socket = require('socket.io-client')(config.socketUrl);
 
-var Notif = require('../models/notif.model.js');
+var Notif = require('api/models/Notif.js');
 
 var service = {};
 
@@ -12,6 +12,7 @@ service.getAll = getAll;
 service.getUnview = getUnview;
 service.push = push;
 service.deleteNotif = deleteNotif;
+service.readAll = readAll;
 
 module.exports = service;
 
@@ -42,6 +43,35 @@ function getUnview(user) {
         if (notifs) {
             // return notifs
             deferred.resolve(notifs);
+        } else {
+            // no notifs
+            deferred.resolve();
+        }
+    });
+
+    return deferred.promise;
+}
+
+function readAll(user) {
+    var deferred = Q.defer();
+
+
+    Notif.find({ user: user, read: 0}, function (err, notifs) {
+        if (err) deferred.reject(err.name + ': ' + err.message);
+
+        if (notifs) {
+
+            for(var x in notifs){
+                Notif.update(
+                    { _id: notifs[x]._id },
+                    { $set: {read: 1} },
+                    function (err, doc) {
+                        if (err) deferred.reject(err.name + ': ' + err.message);
+        
+                        deferred.resolve({"statut": "success"});
+                    });
+            }
+            deferred.resolve();
         } else {
             // no notifs
             deferred.resolve();

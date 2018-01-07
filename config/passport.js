@@ -1,7 +1,7 @@
 
 
 // load up the user model
-var User = require('../models/users.model.js');
+var User = require('../api/models/Users.js');
 
 var config = require('./config.js');
 

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="static/css/main.css">
+    <link rel="stylesheet" href="/static/assets/css/main.css">
     <title>Onyx</title>
   </head>
   <body class="app-ui">
@@ -54,7 +54,7 @@
                   <div class="peers ai-c fxw-nw">
                     <div class="peer">
                       <div class="logo">
-                        <img src="/static/img/logo-little.png" alt="">
+                        <img src="/static/assets/img/logo-little.png" alt="">
                       </div>
                     </div>
                     <div class="peer peer-greed">
@@ -119,7 +119,9 @@
             </ul>
             <ul class="nav-right">
               <li class="notifications dropdown">
-                <span class="counter bgc-red">{{ unview_notifs.length }}</span>
+
+                <span ng-if="unview_notifs.length != 0" class="counter bgc-red">{{ unview_notifs.length }}</span>
+
                 <a href="" class="dropdown-toggle no-after" data-toggle="dropdown">
                   <i class="ti-bell"></i>
                 </a>
@@ -131,23 +133,23 @@
                   </li>
                   <li>
                     <ul class="ovY-a pos-r scrollable lis-n p-0 m-0 fsz-sm">
-                        <li ng-repeat="notif in unview_notifs">
+                        <li ng-repeat="notif in unview_notifs | limitTo:-5 | orderBy:'-time'">
                             <a href="" class='peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100'>
                                 <div class="peer mR-15">
-                                    <img class="w-3r bdrs-50p" src="{{notif.img}}" alt="">
+                                    <span class="w-3r bdrs-50p"><i class="fa {{notif.fa}}" aria-hidden="true"></i></span>
                                 </div>
                                 <div class="peer peer-greed">
                                     <span>
                                         <span class="fw-500">{{ notif.name }}</span>
                                         <span class="c-grey-600">{{ notif.text }}</span>
-                                        </span>
                                     </span>
                                     <p class="m-0">
-                                        <small class="fsz-xs">7 mins ago</small>
+                                        <small class="fsz-xs">{{ getTimeNotif(notif.time) }}</small>
                                     </p>
                                 </div>
                             </a>
                         </li>
+                        <li ng-if="unview_notifs.length == 0" class="peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100">You don't have any notification</li>
                     </ul>
                   </li>
                   <li class="pX-20 pY-15 ta-c bdT">
@@ -168,7 +170,7 @@
                 </a>
                 <ul class="dropdown-menu fsz-sm">
                   <li>
-                    <a href="" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700">
+                    <a ui-sref="settings" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700">
                       <i class="ti-settings mR-10"></i>
                       <span>Setting</span>
                     </a>
@@ -177,12 +179,6 @@
                     <a ui-sref="account" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700">
                       <i class="ti-user mR-10"></i>
                       <span>Profile</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700">
-                      <i class="ti-email mR-10"></i>
-                      <span>Messages</span>
                     </a>
                   </li>
                   <li role="separator" class="divider"></li>
@@ -210,22 +206,25 @@
     </div>
 
     <!-- external scripts -->
-    <script src="static/js/jquery.min.js"></script>
+    <script src="/static/assets/js/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment-with-locales.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="static/js/vendor.js"></script>
-    <script src="static/js/bundle.js"></script>
+    <script src="/static/assets/js/vendor.js"></script>
+    <script src="/static/assets/js/bundle.js"></script>
 
     <!-- application scripts -->
-    <script src="app.js"></script>
-    <script src="services/user.service.js"></script>
-    <script src="services/notif.service.js"></script>
-    <script src="services/todo.service.js"></script>
-    <script src="services/flash.service.js"></script>
-    <script src="controllers/notif.controller.js"></script>
-    <script src="controllers/account.controller.js"></script>
-    <script src="controllers/home.controller.js"></script>
-    <script src="controllers/todo.controller.js"></script>
+    <script src="/static/app.js"></script>
+    <script src="/static/app/users/users.service.js"></script>
+    <script src="/static/app/todo/todo.service.js"></script>
+    <script src="/static/app/notification/notification.service.js"></script>
+    <script src="/static/app/utils/flash.service.js"></script>
+    <script src="/static/app/notification/notification.controller.js"></script>
+    <script src="/static/app/users/users.controller.js"></script>
+    <script src="/static/app/settings/settings.controller.js"></script>
+    <script src="/static/app/home/home.controller.js"></script>
+    <script src="/static/app/todo/todo.controller.js"></script>
 </body>
 </html>

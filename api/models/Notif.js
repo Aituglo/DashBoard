@@ -8,7 +8,7 @@ var notifSchema = mongoose.Schema({
     name: String,
     text: String,
     time: { type: Date, default: Date.now },
-    img: String,
+    fa: String,
     read: Boolean
 });
 

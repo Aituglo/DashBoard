@@ -6,7 +6,7 @@ var Q = require('q');
 var mongo = require('mongoskin');
 var db = mongo.db(config.database.url, { native_parser: true });
 //db.bind('users');
-var User = require('../models/users.model.js');
+var User = require('api/models/Users.js');
 
 var service = {};
 

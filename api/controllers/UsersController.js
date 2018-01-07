@@ -1,7 +1,7 @@
 var config = require('config/config.js');
 var express = require('express');
 var router = express.Router();
-var userService = require('services/user.service');
+var userService = require('api/core/users/index');
 var socket = require('socket.io-client')(config.socketUrl);
 
 // routes

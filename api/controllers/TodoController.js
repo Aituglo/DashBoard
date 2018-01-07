@@ -1,7 +1,7 @@
 var config = require('config/config.js');
 var express = require('express');
 var router = express.Router();
-var todoService = require('services/todo.service');
+var todoService = require('api/core/todo/index');
 
 // routes
 router.post('/add', addTodo);
