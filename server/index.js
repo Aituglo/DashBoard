@@ -1,6 +1,7 @@
 require('rootpath')();
 
 var express = require('express');
+engine = require('ejs-locals')
 var app = express();
 var session = require('express-session');
 var mongoose = require('mongoose');
@@ -31,7 +32,9 @@ if(config.database.user != null && config.database.pass != null){
 i18n.configure({
     locales:['en', 'fr'],
     directory: __dirname + '/../config/locales',
-    defaultLocale: 'fr'
+    defaultLocale: config.default_lang,
+    cookie: 'lang',
+    autoReload: true
 });
 
 mongoose.connect(databaseURL, mongoOptions); // connect database
@@ -39,6 +42,8 @@ mongoose.connect(databaseURL, mongoOptions); // connect database
 var mongoStore = new MongoStore({mongooseConnection: mongoose.connection});
 
 require('../config/passport.js')(passport); // pass passport for configuration
+
+app.engine('ejs', engine);
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/../client/views');
@@ -52,12 +57,22 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(i18n.init);
 
-// use JWT auth to secure the api
-app.use('/api', expressJwt({ secret: config.secret }).unless({ path: ['/api/users/authenticate', '/api/users/register'] }));
-
 app.use('/static', express.static('./client/'));
 
-require('./routes.js')(app, passport);
+// use JWT auth to secure the api
+app.use('/*', expressJwt({ 
+    secret: config.secret,
+    getToken: function fromSession(req) {
+        var token = req.session.token || req.body.access_token || req.query.access_token || req.headers['x-access-token'] ;
+        if (token) {
+          return token;
+        } 
+        return null;
+      }
+ }).unless({ path: ['/', '/home', '/static/*', '/user/login', '/user/register', '/api/users/authenticate', '/api/users/register'] }));
+
+
+require('./routes.js')(app, passport, i18n);
 
 // start server
 server.listen(config.port, function () {

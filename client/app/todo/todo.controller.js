@@ -1,8 +1,8 @@
 ﻿
-var app = angular.module('app')
-app.controller('Todo.IndexController', Controller);
+var app = angular.module('onyx')
+app.controller('todoCtrl', TodoCtrl);
 
-function Controller($rootScope, $window, TodoService, FlashService, UserService) {
+function TodoCtrl($rootScope, $window, TodoService, FlashService, UserService) {
     var vm = this;
 
     vm.todos = null;

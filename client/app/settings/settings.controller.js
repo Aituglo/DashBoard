@@ -1,8 +1,8 @@
-var app = angular.module('app')
+var app = angular.module('onyx')
         
-app.controller('Settings.IndexController', Controller);
+app.controller('settingsCtrl', SettingsCtrl);
 
-function Controller($scope, $rootScope, socket) {
+function SettingsCtrl() {
 
     
 }

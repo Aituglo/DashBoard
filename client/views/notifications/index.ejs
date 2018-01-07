@@ -1,0 +1,28 @@
+<% layout('../layout') -%>
+
+<div ng-controller="notifCtrl as vm">
+    <div class="masonry-item col-md-12">
+        <ul class="ovY-a pos-r scrollable lis-n p-0 m-0 fsz-sm">
+            <li ng-repeat="notif in vm.all_notifs | orderBy:'-time'">
+                <a href="" class='peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100'>
+                    <div class="peer mR-15">
+                        <button class="w-3r bdrs-50p btn btn-default btn-circle btn-lg"><i class="fa {{notif.fa}}" aria-hidden="true"></i></button>
+                    </div>
+                    <div class="peer peer-greed">
+                        <span>
+                            <span class="fw-500">{{ notif.name }}</span>
+                            <span class="c-grey-600">{{ notif.text }}</span>
+                            <span class="pull-right c-grey-600 fsz-sm"><i class="fa fa-trash" aria-hidden="true" ng-click="vm.deleteNotif(notif._id)"></i></span>
+                        </span>
+                        <p class="m-0">
+                            <small class="fsz-xs">{{ getTimeNotif(notif.time) }}</small>
+                        </p>
+                        
+                    </div>
+                </a>
+            </li>        
+        </ul>
+    </div>
+
+    <h1 ng-if="vm.all_notifs.length == 0"><%= __("You don't have any notification") %></h1>
+</div>

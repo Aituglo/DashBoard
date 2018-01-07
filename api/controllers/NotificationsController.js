@@ -3,7 +3,7 @@ var router = express.Router();
 
 
 router.get('/', function (req, res) {
-    res.render('todo/index');
+    res.render('notifications/index');
 });
 
 

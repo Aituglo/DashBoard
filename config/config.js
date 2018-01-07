@@ -1,5 +1,6 @@
 module.exports = {
   port: 8080,
+  default_lang: 'en',
   baseUrl: "http://localhost:8080",
   apiUrl: "http://localhost:8080/api",
   socketUrl: "http://localhost:8080",

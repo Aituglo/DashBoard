@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Sign In</title>
+    <title><%= __('Sign in') %></title>
     <style>
       #loader {
         transition: all 0.3s ease-in-out;
@@ -71,29 +71,29 @@
         </div>
       </div>
       <div class="col-12 col-md-4 peer pX-40 pY-80 h-100 bgc-white scrollable pos-r" style='min-width: 320px;'>
-        <h4 class="fw-300 c-grey-900 mB-40">Login </h4>
+        <h4 class="fw-300 c-grey-900 mB-40"><%= __('Login') %> </h4>
         <% if(locals.error) { %>
-            <div class="alert alert-danger"><%= error %></div>
+            <div class="alert alert-danger"><%= __(error) %></div>
         <% } %>
         <% if(locals.success) { %>
-            <div class="alert alert-success"><%= success %></div>
+            <div class="alert alert-success"><%= __(success) %></div>
         <% } %>
         <form method="post">
           <div class="form-group">
-            <label class="text-normal text-dark">Username</label>
-            <input type="text" name="username" id="username" class="form-control" value="<%= locals.username || '' %>" placeholder="Username">
+            <label class="text-normal text-dark"><%= __('Username') %></label>
+            <input type="text" name="username" id="username" class="form-control" value="<%= locals.username || '' %>" placeholder="<%= __('Username') %>">
           </div>
           <div class="form-group">
-            <label class="text-normal text-dark">Password</label>
-            <input type="password" name="password" id="password" class="form-control" placeholder="Password">
+            <label class="text-normal text-dark"><%= __('Password') %></label>
+            <input type="password" name="password" id="password" class="form-control" placeholder="<%= __('Password') %>">
           </div>
           <div class="form-group">
             <div class="peers ai-c jc-sb fxw-nw">
               <div class="peer">
-                <a href="/register" class="btn btn-link">Register</a>
+                <a href="/user/register" class="btn btn-link"><%= __('Register') %></a>
               </div>
               <div class="peer">
-                <button class="btn btn-primary">Login</button>
+                <button class="btn btn-primary"><%= __('Login') %></button>
               </div>
             </div>
           </div>

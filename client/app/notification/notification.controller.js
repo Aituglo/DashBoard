@@ -1,8 +1,8 @@
-var app = angular.module('app')
+var app = angular.module('onyx')
         
-app.controller('Notif.IndexController', Controller);
+app.controller('notifCtrl', NotifCtrl);
 
-function Controller($scope, $rootScope, $interval, NotifService, FlashService, socket) {
+function NotifCtrl($scope, $rootScope, $interval, NotifService, FlashService, socket) {
 
     var vm = this;
 

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Sign Up</title>
+    <title><%= __('Sign up') %></title>
     <style>
       #loader {
         transition: all 0.3s ease-in-out;
@@ -71,38 +71,38 @@
         </div>
       </div>
       <div class="col-12 col-md-4 peer pX-40 pY-80 h-100 bgc-white scrollable pos-r" style='min-width: 320px;'>
-        <h4 class="fw-300 c-grey-900 mB-40">Register</h4>
+        <h4 class="fw-300 c-grey-900 mB-40"><%= __('Register') %></h4>
         <% if(locals.error) { %>
-            <div class="alert alert-danger"><%= error %></div>
+            <div class="alert alert-danger"><%= __(error) %></div>
         <% } %>
         <form method="post">
           <div class="form-group">
-            <label class="text-normal text-dark">First Name</label>
+            <label class="text-normal text-dark"><%= __('First Name') %></label>
             <input type="text" name="firstName" id="firstName" class="form-control" value="<%= locals.firstName || '' %>" required>
           </div>
           <div class="form-group">
-            <label class="text-normal text-dark">Last Name</label>
+            <label class="text-normal text-dark"><%= __('Last Name') %></label>
             <input type="text" name="lastName" id="lastName" class="form-control" value="<%= locals.lastName || '' %>" required>
           </div>
           <div class="form-group">
-            <label class="text-normal text-dark">Username</label>
+            <label class="text-normal text-dark"><%= __('Username') %></label>
             <input type="text" name="username" id="username" class="form-control" value="<%= locals.username || '' %>" required>
           </div>   
           <div class="form-group">
-            <label class="text-normal text-dark">Email Address</label>
+            <label class="text-normal text-dark"><%= __('Email') %></label>
             <input type="email" name="email" id="email" class="form-control" value="<%= locals.email || '' %>" required >
           </div>
           <div class="form-group">
-            <label class="text-normal text-dark">Password</label>
+            <label class="text-normal text-dark"><%= __('Password') %></label>
             <input type="password" name="password" id="password" class="form-control" required>
           </div>
           <div class="form-group">
             <div class="peers ai-c jc-sb fxw-nw">
                 <div class="peer">
-                    <a href="/login" class="btn btn-link">Cancel</a>
+                    <a href="/user/login" class="btn btn-link"><%= __('Cancel') %></a>
                 </div>
                 <div class="peer">
-                    <button class="btn btn-primary">Register</button>     
+                    <button class="btn btn-primary"><%= __('Register') %></button>     
                 </div>
             </div>           
           </div>

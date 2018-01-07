@@ -5,7 +5,7 @@ var bcrypt = require('bcryptjs');
 var Q = require('q');
 var mongo = require('mongoskin');
 var db = mongo.db(config.database.url, { native_parser: true });
-//db.bind('users');
+
 var User = require('api/models/Users.js');
 
 var service = {};
@@ -20,13 +20,13 @@ module.exports = service;
 
 function authenticate(username, password) {
     var deferred = Q.defer();
-
+    
     User.findOne({ username: username }, function(err, user) {
         if (err) deferred.reject(err.name + ': ' + err.message);
 
         if (user && bcrypt.compareSync(password, user.password)) {
             // authentication successful
-            deferred.resolve(jwt.sign({ sub: user._id }, config.secret));
+            deferred.resolve({"token": jwt.sign({ sub: user._id }, config.secret), "user": user});
         } else {
             // authentication failed
             deferred.resolve();
@@ -80,13 +80,14 @@ function create(userParam) {
         // add hashed password to user object
         user.password = bcrypt.hashSync(userParam.password, 10);
         user.admin = 0;
+        user.lang = config.defaultLang;
 
         var query = new User(user);
 
         query.save(function (err, user) {
             if (err) deferred.reject(err.name + ': ' + err.message);
             
-            deferred.resolve();
+            deferred.resolve(user);
         });
 
     }
@@ -127,6 +128,7 @@ function update(_id, userParam) {
             lastName: userParam.lastName,
             username: userParam.username,
             email: userParam.email,
+            lang: userParam.lang,
         };
 
         // update password if it was entered

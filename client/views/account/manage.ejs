@@ -1,29 +1,40 @@
-﻿<h1>My Account</h1>
-<div class="form-container">
-    <form method="post">
-        <div class="form-group">
-            <label for="firstName">First name</label>
-            <input type="text" id="firstName" class="form-control" ng-model="vm.user.firstName" required />
-        </div>
-        <div class="form-group">
-            <label for="lastName">Last name</label>
-            <input type="text" id="lastName" class="form-control" ng-model="vm.user.lastName" required />
-        </div>
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="text" id="email" class="form-control" ng-model="vm.user.email" required />
-        </div>
-        <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" id="username" class="form-control" ng-model="vm.user.username" required />
-        </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" id="password" class="form-control" ng-model="vm.user.password" />
-        </div>
-        <div class="form-group">
-            <button class="btn btn-primary" ng-click="vm.saveUser()">Save</button>
-            <button class="btn btn-danger" ng-click="vm.deleteUser()">Delete</button>
-        </div>
-    </form>
+﻿<% layout('../layout') -%>
+<div ng-controller="accountCtrl as vm">
+
+    <h1><%= __('My account') %></h1>
+    <div class="form-container">
+        <form method="post">
+            <div class="form-group">
+                <label for="firstName"><%= __('First Name') %></label>
+                <input type="text" id="firstName" class="form-control" ng-model="vm.user.firstName" required />
+            </div>
+            <div class="form-group">
+                <label for="lastName"><%= __('Last Name') %></label>
+                <input type="text" id="lastName" class="form-control" ng-model="vm.user.lastName" required />
+            </div>
+            <div class="form-group">
+                <label for="email"><%= __('Email') %></label>
+                <input type="text" id="email" class="form-control" ng-model="vm.user.email" required />
+            </div>
+            <div class="form-group">
+                <label for="username"><%= __('Username') %></label>
+                <input type="text" id="username" class="form-control" ng-model="vm.user.username" required />
+            </div>
+            <div class="form-group">
+                    <label for="lang"><%= __('Lang') %></label>
+                    <select ng-model="vm.user.lang" id="lang" class="form-control">
+                        <option value="en"><%= __('English') %></option>
+                        <option value="fr"><%= __('French') %></option>
+                    </select>
+                </div>
+            <div class="form-group">
+                <label for="password"><%= __('Password') %></label>
+                <input type="password" id="password" class="form-control" ng-model="vm.user.password" />
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary" ng-click="vm.saveUser()"><%= __('Save') %></button>
+                <button class="btn btn-danger" ng-click="vm.deleteUser()"><%= __('Delete') %></button>
+            </div>
+        </form>
+    </div>
 </div>

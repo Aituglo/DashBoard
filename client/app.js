@@ -1,9 +1,7 @@
 ﻿
 
-var app = angular.module('app', ['ui.router']);
-        
-app.config(config);
-        
+var app = angular.module('onyx', []);
+         
 app.factory('socket', function ($rootScope) {
     var socket = io.connect();
     return {
@@ -30,52 +28,7 @@ app.factory('socket', function ($rootScope) {
 
 app.run(run);
 
-function config($stateProvider, $urlRouterProvider) {
-    // default route
-    $urlRouterProvider.otherwise("/");
-
-    $stateProvider
-        .state('home', {
-                url: '/',
-                templateUrl: 'views/home/index.ejs',
-                controller: 'Home.IndexController',
-                controllerAs: 'vm',
-                data: { activeTab: 'home' }
-        })
-        .state('notif', {
-            url: '/notification',
-            templateUrl: 'views/notification/index.ejs',
-            controller: 'Notif.IndexController',
-            controllerAs: 'vm',
-            data: { activeTab: 'notif' }
-        })
-        .state('account', {
-                url: '/account',
-                templateUrl: 'views/account/manage.ejs',
-                controller: 'Account.IndexController',
-                controllerAs: 'vm',
-                data: { activeTab: 'account' }
-        })
-        .state('settings', {
-            url: '/settings',
-            templateUrl: 'views/settings/index.ejs',
-            controller: 'Settings.IndexController',
-            controllerAs: 'vm',
-            data: { activeTab: 'settings' }
-        })
-        .state('todo', {
-                url: '/todo',
-                templateUrl: 'views/todo/index.ejs',
-                controller: 'Todo.IndexController',
-                controllerAs: 'vm',
-                data: { activeTab: 'todo' }
-        });
-}
-
-
-
 function run($http, $rootScope, $window, $interval, UserService, NotifService, socket) {
-        // add JWT token as default auth header
     $http.defaults.headers.common['Authorization'] = 'Bearer ' + $window.jwtToken;
 
     UserService.GetCurrent().then(function (user) {
@@ -110,19 +63,5 @@ function run($http, $rootScope, $window, $interval, UserService, NotifService, s
         $rootScope.unview_notifs = notifs;
     });  
 
-    // update active tab on state change
-    $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-        $rootScope.activeTab = toState.data.activeTab;
-    });
 
 }
-
-// manually bootstrap angular after the JWT token is retrieved from the server
-$(function () {
-    // get JWT token from server
-    $.get('/app/token', function (token) {
-        window.jwtToken = token;
-
-        angular.bootstrap(document, ['app']);
-    });
-});

@@ -14,7 +14,6 @@ module.exports = function(io, domain){
 
 
     //push
-
     socket.on('push', function(data){
       notifService.push(data)
         .then(function () {

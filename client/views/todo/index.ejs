@@ -1,47 +1,45 @@
-﻿<h1 class="text-center">Todo
-  <p class="lead">Personal Task</p> 
-</h1> 
+﻿<% layout('../layout') -%>
+<div ng-controller="todoCtrl as vm">
+
+  <h1 class="text-center"><%= __('Todo') %>
+    <p class="lead"><%= __('Personal Task') %></p> 
+  </h1> 
 
 
-<div class="masonry-item col-md-12">
-  <!-- #Todo ==================== -->
-  <div class="bd bgc-white p-20">
-    <div class="layers">
-      <div class="layer w-100 mB-10">
-        <h6 class="lh-1">Todo List</h6>
-      </div>
-      <div class="layer w-100">
-        <ul class="list-task list-group" data-role="tasklist">
+  <div class="masonry-item col-md-12">
+    <!-- #Todo ==================== -->
+    <div class="bd bgc-white p-20">
+      <div class="layers">
+        <div class="layer w-100 mB-10">
+          <h6 class="lh-1"><%= __('Todo') %></h6>
+        </div>
+        <div class="layer w-100">
+          <ul class="list-task list-group" data-role="tasklist">
 
-          <li class="list-group-item bdw-0" data-role="task" ng-repeat="todo in vm.todos | filter:statusFilter track by $index" >
-            <div class="checkbox checkbox-circle checkbox-info peers ai-c">
-              <input type="checkbox" id="inputCall1" name="inputCheckboxesCall" class="peer" ng-click="vm.deleteTodo(todo._id)">
-              <label for="inputCall1" class=" peers peer-greed js-sb ai-c">
-                  <input class="peer peer-greed edit form-control form-control-lg" ng-trim="false" ng-model="todo.name" ng-blur="doneEditing(todo)" todo-escape="revertEditing(todo)" todo-focus="todo == editedTodo">
-              </label>
-            </div>
-          </li>
-          
-        </ul>
+            <li class="list-group-item bdw-0" data-role="task" ng-repeat="todo in vm.todos | filter:statusFilter track by $index" >
+              <div class="checkbox checkbox-circle checkbox-info peers ai-c">
+                <input type="checkbox" id="inputCall1" name="inputCheckboxesCall" class="peer" ng-click="vm.deleteTodo(todo._id)">
+                <label for="inputCall1" class=" peers peer-greed js-sb ai-c">
+                    <input class="peer peer-greed edit form-control form-control-lg" ng-trim="false" ng-model="todo.name" ng-blur="doneEditing(todo)" todo-escape="revertEditing(todo)" todo-focus="todo == editedTodo">
+                </label>
+              </div>
+            </li>
+            
+          </ul>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<br><br>
+  <br><br>
 
-<div class="row justify-content-md-center">
-    <span class="form-group-btn">
-        <button class="btn btn-success btn-lg"><i class="fa fa-chevron-right"></i></button>
-    </span>
-<div class="col-md-auto">
-    <form id="todo-form" ng-submit="vm.addTodo()">
-        <div class="form-group">
-            <input class="form-control form-control-lg" id="new-todo" placeholder="What needs to be done?" ng-model="vm.todo.name" autofocus="">
-        </div>
-    </form>
-</div>
-    <span class="form-group-btn">
-      <button class="btn btn-default btn-lg" ng-click="vm.addTodo()"><i class="fa fa-plus"></i></button>
-    </span>
+  <div class="row justify-content-md-center">
+    <div class="col-md-auto">
+        <form id="todo-form" ng-submit="vm.addTodo()">
+            <div class="form-group">
+                <input class="form-control form-control-lg" id="new-todo" placeholder="<%= __('What needs to be done?') %>" ng-model="vm.todo.name" autofocus="">
+            </div>
+        </form>
+    </div>
+  </div>
 </div>

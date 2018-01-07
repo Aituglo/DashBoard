@@ -1,6 +1,5 @@
 // load the things we need
 var mongoose = require('mongoose');
-var bcrypt = require('bcryptjs');
 
 // define the schema for our user model
 var notifSchema = mongoose.Schema({

@@ -1,23 +1,40 @@
-module.exports = function(app) {
+module.exports = function(app, passport, i18n) {
 
     // routes
 
     //base
-    app.use('/login', require('../api/controllers/LoginController'));
-    app.use('/logout', require('../api/controllers/LogoutController'));
-    app.use('/register', require('../api/controllers/RegisterController'));
+    app.use('/user', require('../api/controllers/UsersController'));
+    app.use('/home', require('../api/controllers/HomeController'));
+    app.use('/settings', require('../api/controllers/SettingsController'));
+    app.use('/notifications', require('../api/controllers/NotificationsController'));
+    app.use('/todo', require('../api/controllers/TodoController'));
 
-    //angular
-    app.use('/app', require('../api/controllers/AppController'));
 
     //api
-    app.use('/api/users', require('../api/controllers/UsersController'));
-    app.use('/api/notifs', require('../api/controllers/NotificationController'));
-    app.use('/api/todo', require('../api/controllers/TodoController'));
+    app.use('/api/users', require('../api/controllers/UsersController.api'));
+    app.use('/api/notifs', require('../api/controllers/NotificationsController.api'));
+    app.use('/api/todo', require('../api/controllers/TodoController.api'));
     
-    // make '/app' default route
     app.get('/', function (req, res) {
-        return res.redirect('/app');
+        return res.redirect('/home');
+    });
+
+    app.use(function(req, res, next){
+        // 404
+        res.status(404).render('404');
+    });
+
+    app.use(function(req, res, next){
+        // 505
+        res.status(500).render('500');
+    });
+
+
+    app.use(function (err, req, res, next) {
+        // If no auth
+        if (err.name === 'UnauthorizedError') {
+          res.status(401).redirect('/');
+        }
     });
 
 };

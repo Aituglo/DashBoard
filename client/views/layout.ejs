@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/static/assets/css/main.css">
     <title>Onyx</title>
   </head>
-  <body class="app-ui">
+  <body class="app-ui" ng-app="onyx">
     <!-- @TOC -->
     <!-- =================================================== -->
     <!--
@@ -76,20 +76,20 @@
           <!-- ### $Sidebar Menu ### -->
           <ul class="sidebar-menu scrollable pos-r">
 
-            <li class="nav-item mT-30" ng-class="{active: activeTab === 'home'}">
-              <a class='sidebar-link' ui-sref="home" href="#" default>
+            <li class="nav-item mT-30">
+              <a class='sidebar-link' href="/home" default>
                 <span class="icon-holder">
                   <i class="c-blue-500 ti-home"></i>
                 </span>
-                <span class="title">Home</span>
+                <span class="title"><%= __('Home') %></span>
               </a>
             </li>
-            <li class="nav-item" ng-class="{active: activeTab === 'todo'}">
-              <a class='sidebar-link' ui-sref="todo" href="#">
+            <li class="nav-item">
+              <a class='sidebar-link' href="/todo">
                 <span class="icon-holder">
                   <i class="c-orange-500 ti-layout-list-thumb"></i>
                 </span>
-                <span class="title">Todo</span>
+                <span class="title"><%= __('Todo') %></span>
               </a>
             </li>
           </ul>
@@ -129,7 +129,7 @@
                 <ul class="dropdown-menu">
                   <li class="pX-20 pY-15 bdB">
                     <i class="ti-bell pR-10"></i>
-                    <span class="fsz-sm fw-600 c-grey-900">Notifications</span>
+                    <span class="fsz-sm fw-600 c-grey-900"><%= __('Notifications') %></span>
                   </li>
                   <li>
                     <ul class="ovY-a pos-r scrollable lis-n p-0 m-0 fsz-sm">
@@ -149,12 +149,12 @@
                                 </div>
                             </a>
                         </li>
-                        <li ng-if="unview_notifs.length == 0" class="peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100">You don't have any notification</li>
+                        <li ng-if="unview_notifs.length == 0" class="peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100"><%= __("You don't have any new notification") %></li>
                     </ul>
                   </li>
                   <li class="pX-20 pY-15 ta-c bdT">
                     <span>
-                      <a ui-sref="notif" class="c-grey-600 cH-blue fsz-sm td-n">View All Notifications <i class="ti-angle-right fsz-xs mL-10"></i></a>
+                      <a href="/notifications" class="c-grey-600 cH-blue fsz-sm td-n"><%= __("View All Notifications") %> <i class="ti-angle-right fsz-xs mL-10"></i></a>
                     </span>
                   </li>
                 </ul>
@@ -170,22 +170,22 @@
                 </a>
                 <ul class="dropdown-menu fsz-sm">
                   <li>
-                    <a ui-sref="settings" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700">
+                    <a href="/settings" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700">
                       <i class="ti-settings mR-10"></i>
-                      <span>Setting</span>
+                      <span><%= __('Settings') %></span>
                     </a>
                   </li>
                   <li>
-                    <a ui-sref="account" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700">
+                    <a href="/user/manage" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700">
                       <i class="ti-user mR-10"></i>
-                      <span>Profile</span>
+                      <span><%= __('Profile') %></span>
                     </a>
                   </li>
                   <li role="separator" class="divider"></li>
                   <li>
-                    <a href="/logout" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700">
+                    <a href="/user/logout" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700">
                       <i class="ti-power-off mR-10"></i>
-                      <span>Logout</span>
+                      <span><%= __('Logout') %></span>
                     </a>
                   </li>
                 </ul>
@@ -195,12 +195,14 @@
         </div>
 
         <!-- ### $App Screen Content ### -->
-        <main class='main-content bgc-grey-100' ui-view></main>
+        <main class='main-content bgc-grey-100'>
+          <%-body -%>
+        </main>
 
 
         <!-- ### $App Screen Footer ### -->
         <footer class="bdT ta-c p-30 lh-0 fsz-sm c-grey-600">
-          <span>Copyright © 2018 Onyx. All rights reserved.</span>
+          <span>Copyright © 2018 Onyx. <%= __("All rights reserved.") %></span>
         </footer>
       </div>
     </div>

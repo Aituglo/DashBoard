@@ -1,8 +1,8 @@
 ﻿
-var app = angular.module('app')
-app.controller('Account.IndexController', Controller);
+var app = angular.module('onyx')
+app.controller('accountCtrl', AccountCtrl);
 
-function Controller($window, UserService, FlashService) {
+function AccountCtrl($window, UserService, FlashService) {
     var vm = this;
 
     vm.user = null;
@@ -22,6 +22,7 @@ function Controller($window, UserService, FlashService) {
         UserService.Update(vm.user)
             .then(function () {
                 FlashService.Success('User updated');
+                $window.location = '/';
             })
             .catch(function (error) {
                 FlashService.Error(error);
